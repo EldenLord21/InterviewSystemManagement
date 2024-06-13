@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Home Page</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <script>
+        function confirmExit() {
+            var confirmation = confirm("Bạn có muốn thoát không?");
+            if (confirmation) {
+                window.location.href = "login.html";
+            }
+        }
+    </script>
+    <script th:src="@{/js/candidate-list.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <div class="logo">
+            <img src="/css/logo.jpg" alt="Anh Dev"/>
+            <span>IMS</span>
+        </div>
+        <a href="candidate-list.html" class="fa-solid fa-house home"></a>
+        <a href="#" class="remain">
+            <i class="fa-solid fa-users"></i>
+            <div>Candidate</div>
+        </a>
+        <a href="#" class="remain">
+            <i class="fa-solid fa-briefcase"></i>
+            <div>Job</div>
+        </a>
+        <a href="#" class="remain">
+            <i class="fa-regular fa-comments"></i>
+            <div>Interview</div>
+        </a>
+        <a href="#" class="remain">
+            <i class="fa-regular fa-file-lines"></i>
+            <div>Offer</div>
+        </a>
+        <a href="#" class="remain">
+            <i class="fa-solid fa-user-tag"></i>
+            <div>User</div>
+        </a>
+    </div>
+    <div class="right">
+        <div class="right_head">
+            <div class="title">Candidate</div>
+            <div>
+                <i class="fa-solid fa-user"></i>
+                <button onclick="confirmExit()">Log out</button>
+            </div>
+        </div>
+        <div class="content">
+            <form id="search-form" action="/search" method="GET">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search" id="search-query" name="search-query"/>
+                    <select id="search-criteria" name="search-criteria">
+                        <option value="status">Status</option>
+                        <option value="name">Name</option>
+                        <option value="email">Email</option>
+                        <option value="phone">Phone No.</option>
+                        <option value="position">Current Position</option>
+                        <option value="hr">Owner HR</option>
+                        <option value="banned">Banned</option>
+                    </select>
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+            <table class="candidate-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone No.</th>
+                    <th>Current Position</th>
+                    <th>Owner HR</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="candidate-list">
+                <tr th:each="candidate : ${candidates}">
+                    <td th:text="${candidate.candidateName}"></td>
+                    <td th:text="${candidate.candidateEmail}"></td>
+                    <td th:text="${candidate.candidatePhone}"></td>
+                    <td th:text="${candidate.currentPosition}"></td>
+                    <td th:text="${candidate.ownerHR}"></td>
+                    <td th:text="${candidate.status}"></td>
+                    <td>
+                        <button>View</button>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                <!-- More rows can be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
